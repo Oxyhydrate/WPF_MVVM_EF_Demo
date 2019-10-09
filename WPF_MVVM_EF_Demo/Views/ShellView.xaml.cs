@@ -12,17 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Demo.UI.ViewModels;
+using Demo.UI.Models;
 
-namespace WPF_MVVM_EF_Demo
+namespace Demo.UI.Views
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для ShellView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ShellView : Window
     {
-        public MainWindow()
+        public ShellView()
         {
             InitializeComponent();
+        }
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //временно потом переделать wpf
+            Application.Current.Shutdown();
         }
     }
 }
