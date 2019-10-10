@@ -128,7 +128,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -141,6 +143,16 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Demo.BL\Demo.BL.csproj">
+      <Project>{7e4f8f26-334c-4ba3-8b8b-d741fc47a57c}</Project>
+      <Name>Demo.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Demo.Data\Demo.Data.csproj">
+      <Project>{cb420a19-504d-4b43-809e-605fb5356889}</Project>
+      <Name>Demo.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

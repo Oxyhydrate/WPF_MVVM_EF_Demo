@@ -12,6 +12,15 @@ namespace Demo.Data.DB
         {
         }
 
+        //перегружаем конструктор DBDemoModel чтобы подставить пароль в ConnectionString
+        public DBDemoModel(string pass)
+        : base("name=DBDemoModel")
+        {
+
+            this.Database.Connection.ConnectionString = this.Database.Connection.ConnectionString.Replace("mypassword", pass);
+
+        }
+
         public virtual DbSet<ABONENTS> ABONENTS { get; set; }
         public virtual DbSet<BILLS> BILLS { get; set; }
         public virtual DbSet<COMMENTS> COMMENTS { get; set; }

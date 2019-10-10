@@ -64,10 +64,13 @@
     <Compile Include="DB\DBDemoModel.cs" />
     <Compile Include="DB\NUMBERS.cs" />
     <Compile Include="DB\SR_BANK.cs" />
+    <Compile Include="IFindAbonents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

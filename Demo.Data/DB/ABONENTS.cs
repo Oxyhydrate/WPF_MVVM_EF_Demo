@@ -50,5 +50,14 @@ namespace Demo.Data.DB
         public string GLAVBUH { get; set; }
 
         public decimal? GOS_CONTRACT_STATUS { get; set; }
+
+        // навигационные свойства
+        public virtual ICollection<NUMBERS> NUMBERS { get; set; }
+
+        public ABONENTS()
+        {
+            NUMBERS = new List<NUMBERS>();
+        }
+
     }
 }
