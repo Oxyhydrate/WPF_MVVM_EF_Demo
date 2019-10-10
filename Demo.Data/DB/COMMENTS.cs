@@ -14,5 +14,7 @@ namespace Demo.Data.DB
 
         [StringLength(2000)]
         public string COMM { get; set; }
+
+        public virtual ABONENTS ABONENTS { get; set; }
     }
 }

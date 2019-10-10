@@ -9,6 +9,12 @@ namespace Demo.Data.DB
     [Table("BEE.SR_BANK")]
     public partial class SR_BANK
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SR_BANK()
+        {
+            ABONENTS = new HashSet<ABONENTS>();
+        }
+
         [Key]
         [StringLength(9)]
         public string BIK { get; set; }
@@ -22,5 +28,8 @@ namespace Demo.Data.DB
 
         [StringLength(150)]
         public string TOWN_NAME { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ABONENTS> ABONENTS { get; set; }
     }
 }

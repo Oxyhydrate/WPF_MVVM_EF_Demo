@@ -9,6 +9,13 @@ namespace Demo.Data.DB
     [Table("BEE.CONTACTS")]
     public partial class CONTACTS
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CONTACTS()
+        {
+            ABONENTS = new HashSet<ABONENTS>();
+            ABONENTS1 = new HashSet<ABONENTS>();
+        }
+
         public decimal ID { get; set; }
 
         public int? ZIP { get; set; }
@@ -48,5 +55,11 @@ namespace Demo.Data.DB
         public string CONTACTNAME { get; set; }
 
         public decimal? KOD_SUBSCRIBE { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ABONENTS> ABONENTS { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ABONENTS> ABONENTS1 { get; set; }
     }
 }

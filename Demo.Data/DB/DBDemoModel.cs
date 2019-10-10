@@ -12,16 +12,8 @@ namespace Demo.Data.DB
         {
         }
 
-        //перегружаем конструктор DBDemoModel чтобы подставить пароль в ConnectionString
-        public DBDemoModel(string pass)
-        : base("name=DBDemoModel")
-        {
-
-            this.Database.Connection.ConnectionString = this.Database.Connection.ConnectionString.Replace("mypassword", pass);
-
-        }
-
         public virtual DbSet<ABONENTS> ABONENTS { get; set; }
+        public virtual DbSet<BANS> BANS { get; set; }
         public virtual DbSet<BILLS> BILLS { get; set; }
         public virtual DbSet<COMMENTS> COMMENTS { get; set; }
         public virtual DbSet<CONTACTS> CONTACTS { get; set; }
@@ -77,6 +69,29 @@ namespace Demo.Data.DB
             modelBuilder.Entity<ABONENTS>()
                 .Property(e => e.GOS_CONTRACT_STATUS)
                 .HasPrecision(38, 0);
+
+            modelBuilder.Entity<ABONENTS>()
+                .Property(e => e.BIK)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ABONENTS>()
+                .HasOptional(e => e.COMMENTS)
+                .WithRequired(e => e.ABONENTS);
+
+            modelBuilder.Entity<ABONENTS>()
+                .HasMany(e => e.BANS)
+                .WithRequired(e => e.ABONENTS)
+                .HasForeignKey(e => e.SR_SUBSCRIBE)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<BANS>()
+                .Property(e => e.SR_SUBSCRIBE)
+                .HasPrecision(38, 0);
+
+            modelBuilder.Entity<BANS>()
+                .Property(e => e.BAN)
+                .IsUnicode(false);
 
             modelBuilder.Entity<BILLS>()
                 .Property(e => e.BAN)
@@ -157,6 +172,16 @@ namespace Demo.Data.DB
             modelBuilder.Entity<CONTACTS>()
                 .Property(e => e.KOD_SUBSCRIBE)
                 .HasPrecision(38, 0);
+
+            modelBuilder.Entity<CONTACTS>()
+                .HasMany(e => e.ABONENTS)
+                .WithOptional(e => e.CONTACTS)
+                .HasForeignKey(e => e.LEGAL_ADDRESS);
+
+            modelBuilder.Entity<CONTACTS>()
+                .HasMany(e => e.ABONENTS1)
+                .WithOptional(e => e.CONTACTS1)
+                .HasForeignKey(e => e.PHISIC_ADDRESS);
 
             modelBuilder.Entity<NUMBERS>()
                 .Property(e => e.KOD_SUBSCRIBE)

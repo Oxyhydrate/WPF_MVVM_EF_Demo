@@ -21,5 +21,7 @@ namespace Demo.Data.DB
         public decimal? SUMM { get; set; }
 
         public decimal? ORDER_ID { get; set; }
+
+        public virtual BANS BANS { get; set; }
     }
 }

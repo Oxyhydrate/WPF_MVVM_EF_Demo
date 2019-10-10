@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DB\ABONENTS.cs" />
+    <Compile Include="DB\BANS.cs" />
     <Compile Include="DB\BILLS.cs" />
     <Compile Include="DB\COMMENTS.cs" />
     <Compile Include="DB\CONTACTS.cs" />

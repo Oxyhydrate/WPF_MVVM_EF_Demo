@@ -27,9 +27,7 @@ namespace Demo.Data.DB
         public string TARIFF { get; set; }
 
         public decimal? STATUS { get; set; }
-        // навигационные свойства
 
-        public decimal? ABONENTS_KOD_SUBSCRIBE { get; set; }
-        public virtual ABONENTS ABONENTS { get; set; }
+        public virtual BANS BANS { get; set; }
     }
 }
