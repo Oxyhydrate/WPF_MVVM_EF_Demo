@@ -7,21 +7,44 @@ using Demo.UI.ViewModels;
 using Demo.UI.Models;
 using Demo.Data;
 using Caliburn.Micro;
+using Demo.Data.DB;
 
 namespace Demo.UI.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel 
     {
-        private List<IFindAbonents> _found = new List<IFindAbonents>();
-        private string _searchingText;
+        AbonentsFinder af = null;
 
-        public List<IFindAbonents> Found
+        public BindableCollection<ABONENTS> AbonentsByName { get; set; }
+
+        public string SearchingText { get; set; }
+        public void FindAbonentByName()
         {
-            get { return _found; }
-            set { _found = value; }
+
+            AbonentsByName.AddRange(af.SelectAbonentsByName(SearchingText));
+
+        }
+        public ShellViewModel()
+        {
+            af = new AbonentsFinder();
+            AbonentsByName = new BindableCollection<ABONENTS>();
         }
 
-        public string SearchingText { get => _searchingText; set => _searchingText = value; }
+
+        #region //временно для теста  подключения
+        //private List<IFindAbonents> _found = new List<IFindAbonents>();
+        //
+
+        //public List<IFindAbonents> Found
+        //{
+        //    get { return _found; }
+        //    set { _found = value; }
+        //}
+
+        //
+
+
+
 
 
         //public List<ISearchable> FindAbonents()
@@ -43,21 +66,21 @@ namespace Demo.UI.ViewModels
 
         //    }
 
-            #region //временно для теста  подключения
-            //private List<SR_TYPE_PLACES> список = null;
+
+        //private List<SR_TYPE_PLACES> список = null;
 
 
-            //public List<SR_TYPE_PLACES> Список
-            //{
-            //    get
-            //    {
-            //        список = TypePlaces.GetTypePlacesList();
+        //public List<SR_TYPE_PLACES> Список
+        //{
+        //    get
+        //    {
+        //        список = TypePlaces.GetTypePlacesList();
 
-            //        return список;
+        //        return список;
 
-            //    }
-            //}
+        //    }
+        //}
 
-            #endregion
+        #endregion
     }
 }

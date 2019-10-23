@@ -50,7 +50,7 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
-                <Button Margin="5">Поиск</Button>
+                <Button x:Name="FindAbonentByName" Margin="5">Поиск</Button>
                 <Button Margin="5">Очистить</Button>
                 <Button Margin="5">Справочники</Button>
                 <Button
@@ -81,7 +81,13 @@
                 x:Name="SearchingText"
                 Grid.Row="0"
                 Margin="5" />
-            <DataGrid Grid.Row="1" Grid.Column="1" />
+
+            <DataGrid
+                x:Name="AbonentsByName"
+                Grid.Row="1"
+                
+                AlternatingRowBackground="Gray"
+                CanUserAddRows="False" />
         </Grid>
 
 

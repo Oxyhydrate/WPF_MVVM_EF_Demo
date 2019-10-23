@@ -4,12 +4,23 @@ namespace Demo.Data.DB
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    
 
     public partial class DBDemoModel : DbContext
     {
         public DBDemoModel()
-            : base("name=DBDemoModel")
+            : base("name=Model1")
         {
+        }
+
+        //перегружаем конструктор DBDemoModel чтобы подставить пароль в ConnectionString
+
+        public DBDemoModel(string pass)
+                : base("name=Model1")
+        {
+            
+            this.Database.Connection.ConnectionString = this.Database.Connection.ConnectionString.Replace("mypassword", pass);
+
         }
 
         public virtual DbSet<ABONENTS> ABONENTS { get; set; }
