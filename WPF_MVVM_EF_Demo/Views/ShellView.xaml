@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:vm="clr-namespace:Demo.UI.ViewModels"
-    Width="525"
+    Width="700"
     Height="350"
     MinWidth="525"
     MinHeight="350"
@@ -85,9 +85,47 @@
             <DataGrid
                 x:Name="AbonentsByName"
                 Grid.Row="1"
-                
-                AlternatingRowBackground="Gray"
-                CanUserAddRows="False" />
+                AutoGenerateColumns="False"
+                CanUserAddRows="False">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding Path=OWNER}"
+                        Header="Название организации" />
+                    <DataGridTextColumn Binding="{Binding Path=INN_PASSPORT}" Header="ИНН" />
+                    <DataGridTextColumn Binding="{Binding Path=KPP}" Header="КПП" />
+                    <DataGridTextColumn Binding="{Binding Path=DIRECTOR}" Header="Директор" />
+                    <DataGridTemplateColumn Header="Лицевой счет">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding Path=BANS}" SelectedIndex="0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=BAN}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding Path=BANS}" SelectedIndex="0">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Path=BAN}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.AlternatingRowBackground>
+                    <SolidColorBrush Color="#FFDAF1E0" />
+                </DataGrid.AlternatingRowBackground>
+
+            </DataGrid>
         </Grid>
 
 

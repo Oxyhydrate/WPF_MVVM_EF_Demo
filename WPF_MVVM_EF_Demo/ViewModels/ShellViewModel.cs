@@ -15,12 +15,15 @@ namespace Demo.UI.ViewModels
     {
         AbonentsFinder af = null;
 
+        public BANS FirstBan { get; set; }
         public BindableCollection<ABONENTS> AbonentsByName { get; set; }
 
         public string SearchingText { get; set; }
         public void FindAbonentByName()
         {
 
+            AbonentsByName.Clear();
+            
             AbonentsByName.AddRange(af.SelectAbonentsByName(SearchingText));
 
         }
