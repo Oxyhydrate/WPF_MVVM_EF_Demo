@@ -18,18 +18,21 @@ namespace Demo.Data
 
                 //db.Database.Connection.ConnectionString = db.Database.Connection.ConnectionString.Replace("mypassword", "\"KGTUUTGK\"");
                 var cont = db.ABONENTS.Where(a => a.OWNER.Contains(textToFind));
+                
+                
                 var abon = cont.ToList();
-                               
-                foreach (var a in abon)
-                {
-                    
-                    foreach (var b in a.BANS)
-                    {
-                        MessageBox.Show(b.BAN);
-                    }
+
+                //foreach (var a in abon)
+                //{
+
+                //    foreach (var b in a.BANS)
+                //    {
+                //      //  MessageBox.Show(b.BAN);
+                //    }
 
 
-                }
+                //}
+                
                 return new List<ABONENTS>(abon);
 
             }

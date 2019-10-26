@@ -28,8 +28,11 @@ namespace Demo.UI.Views
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            //временно потом переделать wpf
             Application.Current.Shutdown();
+        }
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
