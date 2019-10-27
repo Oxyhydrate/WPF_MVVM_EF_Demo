@@ -11,26 +11,55 @@ using Demo.Data.DB;
 
 namespace Demo.UI.ViewModels
 {
-    public class ShellViewModel 
+    public class ShellViewModel:PropertyChangedBase
     {
         AbonentsFinder af = null;
+        
 
         public BANS FirstBan { get; set; }
-        public BindableCollection<ABONENTS> AbonentsByName { get; set; }
+        public BindableCollection<ABONENTS> AbonentsList { get; set; }
+        private string _textToFind;
+        public string AuthenticationString { get; set; }
+        public string TextToFind
+        {
+            get
+            {
+                return _textToFind;
+            }
+            set
+            {
+                _textToFind = value;
+                NotifyOfPropertyChange(() => TextToFind);
+            }
+        }
+        public string Pass { get; set; }
+        IWindowManager windowManager = new WindowManager();
 
-        public string SearchingText { get; set; }
-        public void FindAbonentByName()
+        public void CreateLoginDB()
+        {
+            LoginDBViewModel LoginDB = new LoginDBViewModel();
+            windowManager.ShowWindow(LoginDB);
+            
+        }
+
+        public void FindAbonentsByName()
         {
 
-            AbonentsByName.Clear();
-            
-            AbonentsByName.AddRange(af.SelectAbonentsByName(SearchingText));
+            AbonentsList.Clear();
+            AbonentsList.AddRange(af.SelectAbonentsByName(TextToFind));
+
+        }
+        public void ClearSearchingText()
+        {
+
+            TextToFind = "";
+
 
         }
         public ShellViewModel()
         {
             af = new AbonentsFinder();
-            AbonentsByName = new BindableCollection<ABONENTS>();
+            AbonentsList = new BindableCollection<ABONENTS>();
         }
 
 
