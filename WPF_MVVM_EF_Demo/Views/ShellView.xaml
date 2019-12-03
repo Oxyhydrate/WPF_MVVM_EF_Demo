@@ -50,15 +50,23 @@
                 Foreground="Green"
                 Text="МГС" />
 
-
-
+            <!--<SolidColorBrush Color="#FFA03B24" />    <SolidColorBrush Color="#FF8BC34A" />-->
             <StackPanel
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
-                <Button x:Name="FindAbonentsByName" Margin="5">Поиск</Button>
-                <Button x:Name="ClearSearchingText" Margin="5">Очистить</Button>
-                <Button x:Name="CreateLoginDB" Margin="5">Подключиться к БД</Button>
+                <Button x:Name="FindAbonentsByName" Margin="5" Padding="8">Поиск</Button>
+                <Button x:Name="ClearSearchingText" Margin="5" Padding="8">Очистить</Button>
+                <Button x:Name="ConnectDB" Margin="5" Padding="8">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding ConnectDBButtonText}"/>
+                            <ToggleButton x:Name="IsConnected" Background="#FF648D34" Margin="5 0 0 0"/>
+                        </StackPanel> 
+                    </Button.Content>
+                    
+                </Button>
+                
                 <Button
                     Width="30"
                     Height="30"

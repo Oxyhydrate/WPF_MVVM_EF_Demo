@@ -6,7 +6,7 @@ namespace Demo.UI.Input
 
 {
     /// <summary>
-    ///   Class used to store multi-key gesture data.
+    ///   Class used to store multi-key gesture data. ИЗ ОФФ ГИТХАБА CALIBRUM MICRO
     /// </summary>
     public class KeySequence
     {

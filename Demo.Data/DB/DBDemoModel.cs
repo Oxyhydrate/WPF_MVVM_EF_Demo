@@ -4,24 +4,52 @@ namespace Demo.Data.DB
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
-    
+    using Oracle.ManagedDataAccess.Client;
 
     public partial class DBDemoModel : DbContext
     {
         public DBDemoModel()
-            : base("name=Model1")
+            : base("name=ConnStrPass")
         {
         }
 
         //перегружаем конструктор DBDemoModel чтобы подставить пароль в ConnectionString
 
+        //public DBDemoModel(string pass)
+        //        : base("name=ConnStrNoPass")
+        //{
+
+        //    this.Database.Connection.ConnectionString = this.Database.Connection.ConnectionString.Replace("QWERTY", pass);
+
+        //}
+        //public DBDemoModel(string pass)
+        //        : base(new OracleConnection("DATA SOURCE=titan; PASSWORD="+pass+";USER ID=BEE"), true)
+        //{
+
+        //}
+
         public DBDemoModel(string pass)
-                : base("name=Model1")
+        : base(new OracleConnection() { ConnectionString = "DATA SOURCE=titan; PASSWORD=" + pass + ";USER ID=BEE" }, true)
         {
-            
-            this.Database.Connection.ConnectionString = this.Database.Connection.ConnectionString.Replace("mypassword", pass);
 
         }
+
+
+
+    //public DBDemoModel(string pass)
+    //            : base(new OracleConnection()
+    //            {
+    //                ConnectionString = new OracleConnectionStringBuilder()
+    //                    {
+    //                        DataSource = filename, ForeignKeys = true
+    //                    }
+    //                    .ConnectionString
+    //            }, true)
+    //    {
+
+    //    }
+
+        
 
         public virtual DbSet<ABONENTS> ABONENTS { get; set; }
         public virtual DbSet<BANS> BANS { get; set; }
