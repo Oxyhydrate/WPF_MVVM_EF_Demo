@@ -70,5 +70,11 @@ namespace Demo.Data.DB
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BANS> BANS { get; set; }
+
+        [NotMapped]
+        public string SelectedBAN { get; set; }
+
+        [NotMapped]
+        public string SelectedMSISDN { get; set; }
     }
 }

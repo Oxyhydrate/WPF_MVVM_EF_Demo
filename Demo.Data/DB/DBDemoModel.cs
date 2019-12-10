@@ -13,43 +13,11 @@ namespace Demo.Data.DB
         {
         }
 
-        //перегружаем конструктор DBDemoModel чтобы подставить пароль в ConnectionString
-
-        //public DBDemoModel(string pass)
-        //        : base("name=ConnStrNoPass")
-        //{
-
-        //    this.Database.Connection.ConnectionString = this.Database.Connection.ConnectionString.Replace("QWERTY", pass);
-
-        //}
-        //public DBDemoModel(string pass)
-        //        : base(new OracleConnection("DATA SOURCE=titan; PASSWORD="+pass+";USER ID=BEE"), true)
-        //{
-
-        //}
-
-        public DBDemoModel(string pass)
+        public DBDemoModel(string pass) //перегружаем конструктор DBDemoModel чтобы подставить пароль в ConnectionString
         : base(new OracleConnection() { ConnectionString = "DATA SOURCE=titan; PASSWORD=" + pass + ";USER ID=BEE" }, true)
         {
 
         }
-
-
-
-    //public DBDemoModel(string pass)
-    //            : base(new OracleConnection()
-    //            {
-    //                ConnectionString = new OracleConnectionStringBuilder()
-    //                    {
-    //                        DataSource = filename, ForeignKeys = true
-    //                    }
-    //                    .ConnectionString
-    //            }, true)
-    //    {
-
-    //    }
-
-        
 
         public virtual DbSet<ABONENTS> ABONENTS { get; set; }
         public virtual DbSet<BANS> BANS { get; set; }

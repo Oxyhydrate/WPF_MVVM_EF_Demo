@@ -13,18 +13,36 @@ namespace Demo.UI.ViewModels
 {
     public class ShellViewModel : Conductor<object>, IHandle<string>, IHandle<bool>
     {
-        private AbonentsFinder _af = null;
+        //private LoginDBViewModel _loginDBVM;
+        
         private readonly IEventAggregator _eventAggregator;
-        private LoginDBViewModel _loginDBVM;
         private string _pass = "";
         private IWindowManager _windowManager = new WindowManager();
         private bool _isConnected;
         private string _connectDBButtonText;
+        private BindableCollection<ABONENTS> _abonentsList;
+        private string _textToFind;
 
-        public BANS FirstBan { get; set; } //первый попавшийся ЛС абонента 
-        public BindableCollection<ABONENTS> AbonentsList { get; set; }
-        //public string AuthenticationString { get; set; }
-        public string TextToFind { get; set; }
+        public BANS SelectedBan { get; set; }
+        public BindableCollection<ABONENTS> AbonentsList
+        {
+            get => _abonentsList;
+            set
+            {
+                _abonentsList = value;
+            }
+        }
+        public string TextToFind
+        {
+            get => _textToFind;
+
+
+            set
+            {
+                _textToFind = value;
+                NotifyOfPropertyChange(() => TextToFind);
+            }
+        }
         public string Pass
         {
             get => _pass;
@@ -34,16 +52,15 @@ namespace Demo.UI.ViewModels
                 NotifyOfPropertyChange(() => Pass);
             }
         }
-        //public bool ConnectedToDB { get; set; }
         public bool IsConnected // возможность подключения к БД + логика текста на кнопке
         {
             get => _isConnected;
-              
+
             set
             {
                 _isConnected = value;
                 NotifyOfPropertyChange(() => IsConnected);
-                ConnectDBButtonText = IsConnected?"Отключиться от БД":"Подключиться к БД";
+                ConnectDBButtonText = IsConnected ? "Отключиться от БД" : "Подключиться к БД";
             }
         }
         public string ConnectDBButtonText
@@ -59,25 +76,24 @@ namespace Demo.UI.ViewModels
         public void ConnectDB()
         {
             Pass = "";
-            IsConnected = false;
-            _windowManager.ShowDialog(_loginDBVM);
+            if (IsConnected) IsConnected = false;
+            else _windowManager.ShowDialog(new LoginDBViewModel(_eventAggregator)); // УТЕЧКА ПАМЯТИ???
         }
-        public void FindAbonentsByName() //поиск абонентов по наименованию
+        public void FindAbonents() //поиск абонентов
         {
             AbonentsList.Clear();
-            AbonentsList.AddRange(_af.SelectAbonentsByName(TextToFind, Pass));
+            AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByBill(TextToFind));
         }
         public void ClearSearchingText()
         {
             TextToFind = "";
         }
-        public ShellViewModel(IEventAggregator eventAgg, LoginDBViewModel loginDBViewModel)
+        public ShellViewModel(IEventAggregator eventAgg) //, LoginDBViewModel loginDBViewModel
         {
             AbonentsList = new BindableCollection<ABONENTS>();  // переделать с DI?
-            //ConnectedToDB = false;
-            _af = new AbonentsFinder(); // переделать с DI?
+            
             IsConnected = false;
-            _loginDBVM = loginDBViewModel;
+            // _loginDBVM = loginDBViewModel;
             _eventAggregator = eventAgg;
             _eventAggregator.Subscribe(this);
             ConnectDBButtonText = "Подключиться к БД";

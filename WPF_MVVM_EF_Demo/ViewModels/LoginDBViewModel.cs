@@ -38,11 +38,11 @@ namespace Demo.UI.ViewModels
         {
             if (Pass != null)
             {
-                if ((new AbonentsFinder()).CanConnectDB(Pass))
+                if ((new AbonentsFinder(Pass)).CanConnectDB())
                 {
                     IsErrorMessageVisible = false;
                     _eventAggregator.PublishOnUIThread(Pass);
-                    _eventAggregator.PublishOnUIThread(!IsErrorMessageVisible); //тут видимость сообщения об ошибке, в ShellViewModel возможность подключения
+                    _eventAggregator.PublishOnUIThread(!IsErrorMessageVisible); //IsErrorMessageVisible тут видимость сообщения об ошибке, в ShellViewModel возможность подключения
                     this.TryClose();
                 }
                 else IsErrorMessageVisible = true;
