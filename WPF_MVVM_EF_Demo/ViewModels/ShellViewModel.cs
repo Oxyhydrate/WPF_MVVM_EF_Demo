@@ -23,6 +23,11 @@ namespace Demo.UI.ViewModels
         private BindableCollection<ABONENTS> _abonentsList;
         private string _textToFind;
 
+        public bool ByOWNER { get; set; }
+        public bool ByINN { get; set; }
+        public bool ByBAN { get; set; }
+        public bool ByMSISDN { get; set; }
+        public bool ByBILL { get; set; }
         public BANS SelectedBan { get; set; }
         public BindableCollection<ABONENTS> AbonentsList
         {
@@ -82,7 +87,11 @@ namespace Demo.UI.ViewModels
         public void FindAbonents() //поиск абонентов
         {
             AbonentsList.Clear();
-            AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByBill(TextToFind));
+            if (ByOWNER) AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByName(TextToFind));
+            if (ByINN) AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByINN(TextToFind));
+            if (ByBAN) AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByBAN(TextToFind));
+            if (ByMSISDN) AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByMSISDN(TextToFind));
+            if (ByBILL) AbonentsList.AddRange(new AbonentsFinder(Pass).SelectAbonentsByBill(TextToFind));
         }
         public void ClearSearchingText()
         {
@@ -91,7 +100,7 @@ namespace Demo.UI.ViewModels
         public ShellViewModel(IEventAggregator eventAgg) //, LoginDBViewModel loginDBViewModel
         {
             AbonentsList = new BindableCollection<ABONENTS>();  // переделать с DI?
-            
+            ByOWNER = true;
             IsConnected = false;
             // _loginDBVM = loginDBViewModel;
             _eventAggregator = eventAgg;

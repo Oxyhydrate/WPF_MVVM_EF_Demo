@@ -123,15 +123,12 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.ColumnSpan="2">
-                <StackPanel Name="ByOWNER" Margin="5" Orientation="Horizontal">
-                    <RadioButton
-                        Margin="5"
-                        Content="По названию"
-                        IsChecked="True" />
-                    <RadioButton Name="ByINN" Margin="5" Content="По ИНН" />
-                    <RadioButton Name="ByBAN" Margin="5" Content="По ЛС" />
-                    <RadioButton Name="ByMSISDN" Margin="5" Content="По номеру телефона" />
-                    <RadioButton Name="ByBILL" Margin="5" Content="По счёту" />
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <RadioButton Margin="5" Content="По названию" IsChecked="{Binding ByOWNER}" />
+                    <RadioButton Name="ByINN" Margin="5" Content="По ИНН" IsChecked="{Binding ByINN}" />
+                    <RadioButton Name="ByBAN" Margin="5" Content="По ЛС" IsChecked="{Binding ByBAN}"/>
+                    <RadioButton Name="ByMSISDN" Margin="5" Content="По номеру телефона" IsChecked="{Binding ByMSISDN}"/>
+                    <RadioButton Name="ByBILL" Margin="5" Content="По счёту" IsChecked="{Binding ByBILL}"/>
                 </StackPanel>
 
                 <TextBox
@@ -173,7 +170,7 @@
                                 <ListView ItemsSource="{Binding Path=BANS}">
                                     <ListView.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Path=BAN}" />
+                                            <TextBox Text="{Binding Path=BAN}" />
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
@@ -194,7 +191,7 @@
                                             <ListView ItemsSource="{Binding Path=NUMBERS}">
                                                 <ListView.ItemTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock Text="{Binding Path=MSISDN}" />
+                                                    <TextBox Text="{Binding Path=MSISDN}" />
                                                 </DataTemplate>
                                                 </ListView.ItemTemplate>
                                             </ListView>
