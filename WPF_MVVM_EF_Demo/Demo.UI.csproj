@@ -104,14 +104,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Convertors\HeaderToImageConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
     <Compile Include="Input\KeySequence.cs" />
     <Compile Include="Input\KeyTrigger.cs" />
     <Compile Include="Input\MultiKeyGesture.cs" />
     <Compile Include="Input\MultiKeyGestureConverter.cs" />
     <Compile Include="Models\ShellData.cs" />
+    <Compile Include="ViewModels\AbonentViewModel.cs" />
     <Compile Include="ViewModels\LoginDBViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\AbonentView.xaml.cs">
+      <DependentUpon>AbonentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginDBView.xaml.cs">
       <DependentUpon>LoginDBView.xaml</DependentUpon>
     </Compile>
@@ -123,6 +128,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Bootstrapper.cs" />
+    <Page Include="Views\AbonentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginDBView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
