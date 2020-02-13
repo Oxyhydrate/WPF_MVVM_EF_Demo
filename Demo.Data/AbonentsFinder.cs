@@ -1,32 +1,16 @@
 ﻿using Demo.Data.DB;
-using Oracle.ManagedDataAccess.Client;
-using Oracle.ManagedDataAccess.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Demo.Data
 {
-    //public sealed class EntityFrameworkConfiguration : DbConfiguration
-    //{
-    //    public static readonly DbConfiguration Instance = new EntityFrameworkConfiguration();
 
-    //    public EntityFrameworkConfiguration()
-    //    {
-    //        SetDefaultConnectionFactory(new OracleConnectionFactory());
-    //        SetProviderServices("Oracle.ManagedDataAccess.Client", EFOracleProviderServices.Instance);
-    //        SetProviderFactory("Oracle.ManagedDataAccess.Client", new OracleClientFactory());
-    //    }
-    //}
     public class AbonentsFinder
     {
-        string _pass;
+        private string _pass;
         public AbonentsFinder(string pass)
         {
             _pass = pass;
@@ -36,27 +20,27 @@ namespace Demo.Data
             using (DBDemoModel db = new DBDemoModel(_pass))
             {
                 //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en-us"); //если нужны ошибки на англ. яз.
+                List<ABONENTS> abon;
+                try
+                {
                 var cont = db.ABONENTS
                     .Where(a => a.OWNER.ToUpper().Contains(textToFind.ToUpper()))
-                    .Include(a=> a.BANS); 
-                var abon = cont.ToList();
+                    .Include(a => a.BANS);
+                    abon = cont.ToList();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Ошибка получения списка абонентов {e.Message}");
+                    return new List<ABONENTS>();
+                }
+
                 foreach (var a in abon) //установим selectedBan и selectedMSISDN в соответствии с критериями поиска
                 {
                     var ban = a.BANS.FirstOrDefault();
                     a.SelectedBAN = ban?.BAN;
                     a.SelectedMSISDN = ban?.NUMBERS.FirstOrDefault()?.MSISDN;
                 }
-                #region тест
-                //foreach (var a in abon)
-                //{
-                //    MessageBox.Show(a.OWNER);
-                //    foreach (var b in a.BANS)
-                //    {
-                //        MessageBox.Show(b.BAN);
-                //    }
-                //}
-                #endregion
-                return new List<ABONENTS>(abon);
+                return abon;
             }
         }
         public List<ABONENTS> SelectAbonentsByINN(string textToFind)
@@ -96,7 +80,7 @@ namespace Demo.Data
                 return new List<ABONENTS>(abon);
             }
         }
-        public List<ABONENTS> SelectAbonentsByMSISDN(string textToFind) 
+        public List<ABONENTS> SelectAbonentsByMSISDN(string textToFind)
         {
             using (DBDemoModel db = new DBDemoModel(_pass))
             {
@@ -155,6 +139,29 @@ namespace Demo.Data
                 return false;
             }
         }
+        public ABONENTS GetAbonent(decimal id)
+        {
+            using (DBDemoModel db = new DBDemoModel(_pass))
+            {
+                ABONENTS abon;
+                try
+                {
+                    var cont = db.ABONENTS
+                        .Where(a => a.KOD_SUBSCRIBE == id)
+                        .Include(a => a.BANS.Select(m => m.NUMBERS))
+                        .Single();
+                    abon = cont;                  
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Ошибка получения абонента {e.Message}");
+                    return new ABONENTS();
+                }
+                return abon;
+            }
+        }
+ 
+
     }
 
 }

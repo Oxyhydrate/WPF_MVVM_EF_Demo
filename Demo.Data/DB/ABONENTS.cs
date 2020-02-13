@@ -9,6 +9,10 @@ namespace Demo.Data.DB
     [Table("BEE.ABONENTS")]
     public partial class ABONENTS
     {
+        #region Generated
+        /// <summary>
+        /// —генерированна€ часть
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ABONENTS()
         {
@@ -70,7 +74,8 @@ namespace Demo.Data.DB
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BANS> BANS { get; set; }
-
+        #endregion
+        
         [NotMapped]
         public string SelectedBAN { get; set; }
 

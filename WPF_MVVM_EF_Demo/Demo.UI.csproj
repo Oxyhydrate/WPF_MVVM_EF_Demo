@@ -104,8 +104,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Convertors\HeaderToImageConverter.cs" />
     <Compile Include="Helpers\PasswordBoxHelper.cs" />
+    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Input\KeySequence.cs" />
     <Compile Include="Input\KeyTrigger.cs" />
     <Compile Include="Input\MultiKeyGesture.cs" />
@@ -195,6 +195,8 @@
   <ItemGroup>
     <Resource Include="img\gerb.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Convertors\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

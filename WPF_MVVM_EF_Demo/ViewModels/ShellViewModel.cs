@@ -8,13 +8,30 @@ using Demo.UI.Models;
 using Demo.Data;
 using Caliburn.Micro;
 using Demo.Data.DB;
+using Demo.UI.Helpers;
+using System.Windows.Input;
+using System.Windows;
 
 namespace Demo.UI.ViewModels
 {
     public class ShellViewModel : Conductor<object>, IHandle<string>, IHandle<bool>
     {
         //private LoginDBViewModel _loginDBVM;
-        
+
+        #region Команды
+        private RelayCommand _editCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                return _editCommand ?? (_editCommand = new RelayCommand(OpenAbonent));
+            }
+        }
+
+
+        #endregion
+
+
         private readonly IEventAggregator _eventAggregator;
         private string _pass = "";
         private IWindowManager _windowManager = new WindowManager();
@@ -29,6 +46,7 @@ namespace Demo.UI.ViewModels
         public bool ByMSISDN { get; set; }
         public bool ByBILL { get; set; }
         public BANS SelectedBan { get; set; }
+        public ABONENTS SelectedAbonent { get; set; }
         public BindableCollection<ABONENTS> AbonentsList
         {
             get => _abonentsList;
@@ -77,12 +95,15 @@ namespace Demo.UI.ViewModels
                 NotifyOfPropertyChange(() => ConnectDBButtonText);
             }
         }
-
-        public void ConnectDB()
+        private void OpenAbonent() // открыть выбранного абонента в отдельном окне
+        {
+            _windowManager.ShowDialog(new AbonentViewModel(_eventAggregator, SelectedAbonent));
+        }
+        public void ConnectDB() // открыть окно подключения к БД
         {
             Pass = "";
             if (IsConnected) IsConnected = false;
-            else _windowManager.ShowDialog(new LoginDBViewModel(_eventAggregator)); // УТЕЧКА ПАМЯТИ???
+            else _windowManager.ShowDialog(new LoginDBViewModel(_eventAggregator));
         }
         public void FindAbonents() //поиск абонентов
         {

@@ -5,7 +5,7 @@
     xmlns:cal="http://www.caliburnproject.org"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Demo.UI"
-    xmlns:conv="clr-namespace:Demo.UI.Convertors"
+    
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:vm="clr-namespace:Demo.UI.ViewModels"
@@ -39,26 +39,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TreeView Width="200" Grid.Column="0" Grid.Row="1" x:Name="FolderView">
-            <TreeView.Resources>
+        <TreeView Width="200" Grid.Column="0" Grid.Row="1" x:Name="Abonent">
 
-                <Style TargetType="{x:Type TreeViewItem}">
-                    <Setter Property="HeaderTemplate">
-                        <Setter.Value>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Width="20" Margin="3" 
-                                        Source="{Binding
-                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeViewItem}},
-                                            Path=Tag,
-                                            Converter={x:Static conv:HeaderToImageConverter.Instance}}" />
-                                    <TextBlock VerticalAlignment="Center" Text="{Binding}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </TreeView.Resources>
         </TreeView>
         <Grid
             Grid.Row="0"

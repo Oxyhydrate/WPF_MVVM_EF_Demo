@@ -12,12 +12,12 @@
     Height="450"
     MinWidth="800"
     MinHeight="450"
+    BorderThickness="0"
+    SizeChanged="Window_SizeChanged"
     WindowStyle="None"
-    mc:Ignorable="d"
-    BorderThickness="0" 
-    SizeChanged="Window_SizeChanged">
+    mc:Ignorable="d">
     <Window.Resources />
-    
+
 
 
     <WindowChrome.WindowChrome>
@@ -26,7 +26,7 @@
 
 
 
-        <Grid>
+    <Grid>
         <Grid.Background>
             <SolidColorBrush Color="#FFDAF1E0" />
         </Grid.Background>
@@ -61,16 +61,32 @@
                 Grid.ColumnSpan="2"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
-                <Button x:Name="FindAbonents" Margin="5" Padding="8">Поиск</Button>
-                <Button x:Name="ClearSearchingText" Margin="5" Padding="8">Очистить</Button>
-                <Button x:Name="ConnectDB" Margin="5" Padding="8">
+                <Button
+                    x:Name="FindAbonents"
+                    Margin="5"
+                    Padding="8">
+                    Поиск
+                </Button>
+                <Button
+                    x:Name="ClearSearchingText"
+                    Margin="5"
+                    Padding="8">
+                    Очистить
+                </Button>
+                <Button
+                    x:Name="ConnectDB"
+                    Margin="5"
+                    Padding="8">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding ConnectDBButtonText}"/>
-                            <ToggleButton x:Name="IsConnected" Background="#FF648D34" Margin="5 0 0 0"/>
-                        </StackPanel> 
+                            <TextBlock Text="{Binding ConnectDBButtonText}" />
+                            <ToggleButton
+                                x:Name="IsConnected"
+                                Margin="5,0,0,0"
+                                Background="#FF648D34" />
+                        </StackPanel>
                     </Button.Content>
-                    
+
                 </Button>
                 <Button
                     Width="30"
@@ -88,7 +104,7 @@
                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
                     <md:PackIcon Kind="WindowMaximize" />
                 </Button>
-                
+
                 <Button
                     Width="30"
                     Height="30"
@@ -124,19 +140,38 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.ColumnSpan="2">
                 <StackPanel Margin="5" Orientation="Horizontal">
-                    <RadioButton Margin="5" Content="По названию" IsChecked="{Binding ByOWNER}" />
-                    <RadioButton Name="ByINN" Margin="5" Content="По ИНН" IsChecked="{Binding ByINN}" />
-                    <RadioButton Name="ByBAN" Margin="5" Content="По ЛС" IsChecked="{Binding ByBAN}"/>
-                    <RadioButton Name="ByMSISDN" Margin="5" Content="По номеру телефона" IsChecked="{Binding ByMSISDN}"/>
-                    <RadioButton Name="ByBILL" Margin="5" Content="По счёту" IsChecked="{Binding ByBILL}"/>
+                    <RadioButton
+                        Margin="5"
+                        Content="По названию"
+                        IsChecked="{Binding ByOWNER}" />
+                    <RadioButton
+                        Name="ByINN"
+                        Margin="5"
+                        Content="По ИНН"
+                        IsChecked="{Binding ByINN}" />
+                    <RadioButton
+                        Name="ByBAN"
+                        Margin="5"
+                        Content="По ЛС"
+                        IsChecked="{Binding ByBAN}" />
+                    <RadioButton
+                        Name="ByMSISDN"
+                        Margin="5"
+                        Content="По номеру телефона"
+                        IsChecked="{Binding ByMSISDN}" />
+                    <RadioButton
+                        Name="ByBILL"
+                        Margin="5"
+                        Content="По счёту"
+                        IsChecked="{Binding ByBILL}" />
                 </StackPanel>
 
                 <TextBox
                     x:Name="TextToFind"
                     Grid.Row="0"
                     Margin="5"
-                    md:HintAssist.Hint="Введите текст для поиска..."
-                    cal:Message.Attach="[Key Enter] = [FindAbonents];" />
+                    cal:Message.Attach="[Key Enter] = [FindAbonents];"
+                    md:HintAssist.Hint="Введите текст для поиска..." />
 
             </StackPanel>
 
@@ -145,25 +180,28 @@
                 x:Name="AbonentsList"
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
+                Margin="5,0,5,5"
                 AutoGenerateColumns="False"
-                Margin="5 0 5 5"
-                CanUserAddRows="False">
-                
+                CanUserAddRows="False"
+                SelectedItem="{Binding Path=SelectedAbonent, Mode=OneWayToSource}">
+                <DataGrid.InputBindings>
+                    <MouseBinding Command="{Binding EditCommand}" Gesture="LeftDoubleClick" />
+                </DataGrid.InputBindings>
                 <DataGrid.Columns>
-
                     <DataGridTextColumn
                         Width="Auto"
                         MinWidth="200"
                         Binding="{Binding Path=OWNER}"
-                        Header="Название организации" />
+                        Header="Название организации"
+                        IsReadOnly="True" />
                     <DataGridTextColumn Binding="{Binding Path=INN_PASSPORT}" Header="ИНН" />
                     <DataGridTextColumn Binding="{Binding Path=KPP}" Header="КПП" />
                     <DataGridTextColumn Binding="{Binding Path=DIRECTOR}" Header="Директор" />
                     <DataGridTemplateColumn Header="Лицевой счет">
                         <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Path=SelectedBAN}" />
-                                        </DataTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=SelectedBAN}" />
+                            </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
@@ -190,12 +228,12 @@
                                         <DataTemplate>
                                             <ListView ItemsSource="{Binding Path=NUMBERS}">
                                                 <ListView.ItemTemplate>
-                                                <DataTemplate>
-                                                    <TextBox Text="{Binding Path=MSISDN}" />
-                                                </DataTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Path=MSISDN}" />
+                                                    </DataTemplate>
                                                 </ListView.ItemTemplate>
                                             </ListView>
-                                            
+
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
                                 </ListView>
@@ -207,11 +245,13 @@
                     <SolidColorBrush Color="#FFDAF1E0" />
                 </DataGrid.AlternatingRowBackground>
 
+
+
             </DataGrid>
         </Grid>
 
 
     </Grid>
-    
+
 </Window>
 
